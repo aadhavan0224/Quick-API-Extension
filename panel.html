@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quick API</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <header>
+    <div class="brand"><span class="dot"></span>Quick API</div>
+    <nav id="mainNav">
+      <button class="nav active" data-view="request">Request</button>
+      <button class="nav" data-view="saved">Saved</button>
+      <button class="nav" data-view="history">History</button>
+    </nav>
+  </header>
+
+  <!-- REQUEST -->
+  <main id="view-request" class="view">
+    <div class="urlbar">
+      <select id="method">
+        <option>GET</option><option>POST</option><option>PUT</option>
+        <option>PATCH</option><option>DELETE</option><option>HEAD</option>
+      </select>
+      <input id="url" type="text" placeholder="Paste a URL or a cURL command" spellcheck="false" autocomplete="off">
+    </div>
+    <div class="actions">
+      <button id="send" class="primary">Send</button>
+      <button id="save" class="ghost" title="Save this request">★ Save</button>
+      <button id="copyCurl" class="ghost" title="Copy as cURL">Copy cURL</button>
+      <button id="clear" class="ghost" title="Start a new request">New</button>
+    </div>
+
+    <div class="tabs" id="reqTabs">
+      <button class="tab active" data-pane="headers">Headers <span class="count" id="hCount"></span></button>
+      <button class="tab" data-pane="body">Body</button>
+      <button class="tab" data-pane="auth">Auth</button>
+    </div>
+
+    <section id="pane-headers" class="pane">
+      <div id="headerRows"></div>
+      <button id="addHeader" class="link">+ Add header</button>
+    </section>
+    <section id="pane-body" class="pane hidden">
+      <textarea id="body" spellcheck="false" placeholder='{"name": "John"}'></textarea>
+      <div class="row-end"><button id="beautify" class="link">Beautify JSON</button></div>
+    </section>
+    <section id="pane-auth" class="pane hidden">
+      <label class="lbl">Bearer token</label>
+      <input id="token" type="text" placeholder="Paste your token (optional)" spellcheck="false">
+      <p class="hint">Adds an <code>Authorization: Bearer …</code> header automatically.</p>
+    </section>
+
+    <div class="resp-head">
+      <h2>Response</h2>
+      <div id="meta" class="meta"></div>
+    </div>
+    <div class="tabs" id="respTabs">
+      <button class="tab active" data-rtab="pretty">Pretty</button>
+      <button class="tab" data-rtab="raw">Raw</button>
+      <button class="tab" data-rtab="rheaders">Headers</button>
+      <button id="copyResp" class="link tab-right">Copy</button>
+    </div>
+    <pre id="resp" class="resp"><span class="muted">Hit Send to see the response here.</span></pre>
+  </main>
+
+  <!-- SAVED -->
+  <main id="view-saved" class="view hidden">
+    <input id="savedSearch" type="text" placeholder="Search saved requests…">
+    <div id="savedList" class="list"></div>
+  </main>
+
+  <!-- HISTORY -->
+  <main id="view-history" class="view hidden">
+    <div class="row-between">
+      <input id="histSearch" type="text" placeholder="Search history…">
+      <button id="clearHist" class="link">Clear</button>
+    </div>
+    <div id="histList" class="list"></div>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="panel.js"></script>
+</body>
+</html>
